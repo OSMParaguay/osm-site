@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+@import url("https://rsms.me/inter/inter.css");
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
@@ -406,6 +406,7 @@ header {
   display: flex;
   align-items: center;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .brand img {
@@ -692,6 +693,7 @@ input[type="checkbox"] {
   max-width: 1110px;
   margin: 0 auto;
   padding: 3.5rem 20px 2rem;
+  overflow: hidden;
 }
 
 .examples__root h1 {
@@ -705,16 +707,20 @@ input[type="checkbox"] {
 
 /* EJEMPLO VIEW */
 .example__root {
+  --sidebar-width: 700px;
+  --sidebar-width-medium: 450px;
+  --sidebar-width-small: 350px;
+  --sidebar-width-extra-small: 275px;
   height: 100%;
   background-color: var(--background);
-  padding-left: 300px;
+  padding-left: var(--sidebar-width);
   position: relative;
   transition: all 300ms ease-in;
   display: flex;
 }
 
 .example__sidebar {
-  width: 300px;
+  width: var(--sidebar-width);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -724,27 +730,12 @@ input[type="checkbox"] {
   display: flex;
   flex-direction: column;
   z-index: 1050;
-}
-
-.example__sidebar .menu-togle {
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 380px;
-  height: 40px;
-  width: 40px;
-  border-radius: 4px;
-  box-shadow: 0 0 16px 8px rgba(0, 0, 0, 0.1);
-  margin: 35px 0 0 0;
-  cursor: pointer;
-  border: none;
-  transition: all 300ms ease-in;
+  overflow: auto;
 }
 
 .example__sidebar .active {
   background-color: var(--color-primary);
-  left: 320px;
+  left: 360px;
 }
 
 .example__sidebar .active .svg {
@@ -776,9 +767,14 @@ input[type="checkbox"] {
   height: 40px;
   border: 1px solid var(--color-primary);
   align-items: center;
-  margin: 0px 0px 16px 0px;
+  margin: 0 px 0px 16px 0px;
   color: var(--color-primary);
   font-weight: 600;
+  max-width: 250px;
+}
+
+.menu-close-label {
+  display: none;
 }
 
 .back-link svg {
@@ -791,14 +787,115 @@ input[type="checkbox"] {
 }
 
 .example__sidebar__content h1 {
-  margin: 0;
+  margin: 0.5em 0;
 }
 
-.example__sidebar__content p {
+/* EXAMPLE TEXT CONTENT FORMAT */
+.example__sidebar__children {
   margin-top: 1em;
   line-height: 1.5em;
 }
 
+.example__sidebar__children bold {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.example__sidebar__children a {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.example__sidebar__children a:hover {
+  color: var(--color-primary-dimmed);
+}
+
+.example__sidebar__children blockquote {
+  margin: 0.75em 0;
+  padding-left: 1em;
+  border-left: 4px solid var(--color-primary);
+}
+
+.example__sidebar__children pre {
+  margin: 0.75em 0;
+  border-radius: 4px;
+  background-color: var(--surface);
+  padding: 8px;
+  overflow: auto;
+  max-width: 100%;
+  max-height: 100%;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+}
+
+@supports (font-variation-settings: normal) {
+  .example__sidebar__children pre {
+    font-family: "Inter var", "Courier New", Courier, monospace;
+  }
+}
+
+.example__sidebar__children code {
+  color: white;
+  background-color: var(--color-primary);
+  font-size: 15px;
+  padding: 0 0.5em;
+  font-weight: 600;
+  border-radius: 3px;
+  font-family: "Inter var", "Courier New", Courier, monospace;
+}
+
+.example__sidebar__children u {
+  text-decoration: none;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.example__sidebar__children table {
+  margin: 0 auto;
+  border-radius: 4px;
+  border-spacing: 0px;
+  background-color: var(--surface);
+}
+
+.example__sidebar__children th {
+  padding: 0.5em;
+  color: white;
+  background-color: var(--color-primary);
+}
+
+.example__sidebar__children th:first-of-type {
+  border-top-left-radius: 4px;
+}
+
+.example__sidebar__children th:last-of-type {
+  border-top-right-radius: 4px;
+}
+
+.example__sidebar__children td {
+  padding: 0.5em;
+}
+
+.example__sidebar__children td {
+  padding: 0.5em;
+}
+
+.example__sidebar__children img {
+  display: block;
+  max-width: 100%;
+}
+
+.example__sidebar__children caption {
+  padding: 0.5em 0;
+}
+
+.example__sidebar__children legend {
+  margin: 0.5em auto 0.5em 0;
+}
+
+.example__sidebar__children legend::before {
+  content: "→ ";
+  color: var(--color-primary);
+  font-weight: 700;
+}
 .example__content__options {
   position: absolute;
   bottom: 20px;
@@ -807,6 +904,10 @@ input[type="checkbox"] {
   background-color: var(--background);
   border-radius: 4px;
   padding: 8px;
+}
+
+.example__content__options .menu {
+  display: none;
 }
 
 .example__content__options svg {
@@ -821,20 +922,20 @@ input[type="checkbox"] {
   fill: var(--color-primary);
 }
 
-.example__content__options svg:first-of-type {
+.example__content__options svg:not(:last-of-type) {
   margin-right: 8px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   .example__root {
     padding: 0;
   }
-
-  .example__root .menu-togle {
-    display: block;
+  .example__content__options .menu {
+    display: inline;
   }
 
   .example__sidebar {
+    width: var(--sidebar-width-medium);
     transform: translateX(-100%);
     box-shadow: 16px 0px 14px rgba(0, 0, 0, 0.15);
   }
@@ -847,21 +948,59 @@ input[type="checkbox"] {
     margin-left: 12px;
     margin-right: 12px;
   }
+
+  .menu-close-label {
+    display: flex;
+    align-items: center;
+    color: var(--color-secondary);
+    padding: 0 4px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: 2px solid var(--color-secondary);
+    cursor: pointer;
+  }
+
+  .menu-close-svg {
+    margin-left: 8px;
+  }
+
+  .menu-close-svg .icon {
+    fill: var(--color-secondary);
+  }
+
+  .menu-close-label:hover {
+    background-color: var(--color-secondary);
+    color: white;
+  }
+
+  .menu-close-label:hover .icon {
+    fill: white;
+  }
+
+  .brand__wrapper {
+    justify-content: space-between;
+  }
 }
 
 @media (max-width: 600px) {
   .example__sidebar {
-    width: 250px;
+    width: var(--sidebar-width-small);
   }
 
-  .example__sidebar .menu-togle {
-    margin: 12px 0 0 0px;
-    left: 310px;
+  .example__sidebar .active {
+    background-color: var(--color-primary);
+    left: 290px;
   }
 
   .example__content {
     margin: 0px;
     border-radius: 0px;
+  }
+}
+
+@media (max-width: 400px) {
+  .example__sidebar {
+    width: var(--sidebar-width-extra-small);
   }
 }
 
